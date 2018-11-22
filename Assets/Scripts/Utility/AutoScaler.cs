@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AutoScalar : MonoBehaviour {
+public class AutoScaler : MonoBehaviour {
 
     public float scaleSpeed;
 
