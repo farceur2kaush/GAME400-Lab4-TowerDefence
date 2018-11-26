@@ -37,7 +37,8 @@ public class WaveManager : MonoBehaviour {
                 activeWave = enemyWave;
                 activatedWaves.Add(enemyWave);
                 spawnCounter = 0f;
-                
+                GameManager.Instance.waveNumber++;
+
                 break;
             }
         }
@@ -74,10 +75,10 @@ public class WaveManager : MonoBehaviour {
                 {
                     activeWave = null;
 
-                    // condition to check if all waves are over
+                    // Condition to check if all waves are over
                     if (activatedWaves.Count == enemyWaves.Count)
                     {
-                        // All waves are over
+                        GameManager.Instance.enemySpawningOver = true;
                     }
                 }
             }
