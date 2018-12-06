@@ -100,8 +100,7 @@ public class Tower : MonoBehaviour {
                 attackCounter = timeBetweenAttacksInSeconds;
             }
             // if enemy out of range, then set the target to null
-            if (Vector3.Distance(transform.position,
-            targetEnemy.transform.position) > aggroRadius)
+            if (Vector3.Distance(transform.position, targetEnemy.transform.position) > aggroRadius)
             {
                 targetEnemy = null;
             }
@@ -111,9 +110,16 @@ public class Tower : MonoBehaviour {
     public void LevelUp()
     {
         towerLevel++;
+       
         //Calculate new stats for this tower
         attackPower *= 2;
         timeBetweenAttacksInSeconds *= 0.7f;
         aggroRadius *= 1.20f;
+    }
+
+    // shows towerInfo and passes the selected tower
+    public void ShowTowerInfo()
+    {
+        UIManager.Instance.ShowTowerInfoWindow(this);
     }
 }
