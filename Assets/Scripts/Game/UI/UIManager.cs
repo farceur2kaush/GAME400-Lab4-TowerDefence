@@ -13,11 +13,15 @@ public class UIManager : MonoBehaviour {
     public GameObject winGameWindow;
     public GameObject loseGameWindow;
     public GameObject blackBackground;
+    public GameObject centerWindow;
 
     //References to the Text components in the TopBar
     public Text txtGold;
     public Text txtWave;
     public Text txtEscapedEnemies;
+
+    public Transform enemyHealthBars;
+    public GameObject enemyHealthBarPrefab;
 
 
     // Singleton
@@ -73,5 +77,32 @@ public class UIManager : MonoBehaviour {
     {
         blackBackground.SetActive(true);
         loseGameWindow.SetActive(true);
+    }
+
+    public void CreateHealthBarForEnemy(Enemy enemy)
+    {
+        // new health bar
+        GameObject healthBar = Instantiate(enemyHealthBarPrefab);
+        // parent the new health bar to enemyhealthbars
+        healthBar.transform.SetParent(enemyHealthBars, false);
+        // enemy reference to the health bar
+        healthBar.GetComponent<EnemyHealthBar>().enemy = enemy;
+    }
+
+    public void ShowCenterWindow(string text)
+    {
+        centerWindow.transform.Find("CenterWindow/TxtWave").GetComponent<Text>().text = text;
+        StartCoroutine(EnableAndDisableCenterWindow());
+    }
+    
+    private IEnumerator EnableAndDisableCenterWindow()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            yield return new WaitForSeconds(.4f);
+            centerWindow.SetActive(true);
+            yield return new WaitForSeconds(.4f);
+            centerWindow.SetActive(false);
+        }
     }
 }
