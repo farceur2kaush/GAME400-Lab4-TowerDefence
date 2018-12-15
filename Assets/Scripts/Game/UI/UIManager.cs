@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour {
     public GameObject loseGameWindow;
     public GameObject blackBackground;
     public GameObject centerWindow;
+    public GameObject damageCanvas;
 
     //References to the Text components in the TopBar
     public Text txtGold;
@@ -103,6 +104,22 @@ public class UIManager : MonoBehaviour {
             centerWindow.SetActive(true);
             yield return new WaitForSeconds(.4f);
             centerWindow.SetActive(false);
+        }
+    }
+
+    public void ShowDamage()
+    {
+        StartCoroutine(DoDamageAnimation());
+    }
+    //2
+    private IEnumerator DoDamageAnimation()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            yield return new WaitForSeconds(.1f);
+            damageCanvas.SetActive(true);
+            yield return new WaitForSeconds(.1f);
+            damageCanvas.SetActive(false);
         }
     }
 }
