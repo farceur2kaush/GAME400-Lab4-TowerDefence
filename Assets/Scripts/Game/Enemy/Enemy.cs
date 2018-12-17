@@ -11,6 +11,10 @@ public class Enemy : MonoBehaviour
 
     private int wayPointIndex = 0;
 
+    public float timeEnemyStaysFrozenInSeconds = 2f;
+    public bool frozen;
+    private float freezeTimer;
+
     void Start()
     {
         EnemyManager.Instance.RegisterEnemy(this);
@@ -52,6 +56,24 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    //1
+    public void Freeze()
+    {
+        if (!frozen)
+        {
+            //2
+            frozen = true;
+            moveSpeed /= 2;
+        }
+    }
+    //3
+    void Defrost()
+    {
+        freezeTimer = 0f;
+        frozen = false;
+        moveSpeed *= 2;
+    }
+
     void Update()
     {
         //1
@@ -63,6 +85,17 @@ public class Enemy : MonoBehaviour
         else
         { // 2
             OnGotToLastWayPoint();
+        }
+        //1
+        if (frozen)
+        {
+            //2
+            freezeTimer += Time.deltaTime;
+            //3
+            if (freezeTimer >= timeEnemyStaysFrozenInSeconds)
+            {
+                Defrost();
+            }
         }
     }
     private void UpdateMovement()
